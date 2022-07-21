@@ -2,7 +2,7 @@
 %	A work by Mário Cristóvão, based on an example by Gonçalo Martins and José Faria.
 
 % Preamble
-\documentclass[a4paper, 12pt]{report}
+\documentclass[a4paper, 11pt]{report}
 
 % Includes
 \usepackage[usenames,dvipsnames]{xcolor}
@@ -47,8 +47,7 @@
 \usepackage{graphicx}
 %\usepackage[table,xcdraw]{xcolor}
 \usepackage{listings}
-
-\usepackage{mathptmx} %Times New Roman Font with support for equations
+\usepackage{lipsum}
 
 \lstset{
     backgroundcolor=\color{backcolour},   
@@ -74,8 +73,67 @@
 \newcommand{\cmark}{\ding{51}}%
 \setlength{\headheight}{16pt}
 \renewcommand{\baselinestretch}{1.5}	% 1.5 line spacing, as mandated by the rules
-\titleformat{\chapter}[hang] 			% Smaller chapter titles
-{\normalfont\huge\bfseries}{\thechapter}{1em}{} 
+\renewcommand{\familydefault}{\rmdefault}
+
+%---FORMAT CHAPTERS---
+
+% Different Formating styles for the chapter, 
+% uncomment your preferred style
+
+% Simple Format
+%\titleformat{\chapter}[hang]
+%{
+%  \sffamily
+%  \Huge
+%  \bfseries
+%}
+%{\thechapter}{0.5em}
+%{}
+
+% Line Format
+\titleformat{\chapter}[hang]
+{
+  \sffamily
+  \Huge
+  \bfseries
+}
+{\thechapter}{0.5em}
+{}
+[\vspace{-3.0ex} \rule{\textwidth}{2pt}]
+
+% Framed Format
+%\titleformat{\chapter}[frame]
+%{
+%  \sffamily
+%  \Huge
+%  \bfseries
+%}
+%{Chapter \thechapter}{0.5em}
+%{}
+
+
+%---STYLE FOR CODE---
+
+%Example of adding a new language (Julia in this case)
+%\lstdefinelanguage{Julia}%
+%  {morekeywords={abstract,break,case,catch,const,continue,do,else,elseif,%
+%      end,export,false,for,function,immutable,import,importall,if,in,%
+%      macro,module,otherwise,quote,return,switch,true,try,type,typealias,%
+%      using,while},%
+%   sensitive=true,%
+%   alsoother={\$},%
+%   morecomment=[l]\#,%
+%   morecomment=[n]{\#=}{=\#},%
+%   morestring=[s]{"}{"},%
+%   morestring=[m]{'}{'},%
+%}[keywords,comments,strings]%
+
+\lstset{aboveskip=20pt,belowskip=20pt}
+\definecolor{codegreen}{rgb}{0,0.3,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.38,0,0.62}
+\definecolor{backcolour}{rgb}{1,1,1}
+
 
 \newcommand{\MONTH}{%
   \ifcase\the\month
@@ -105,6 +163,7 @@
 
 % MAIN DOCUMENT
 \begin{document}
+
 \pagenumbering{roman}
 
 % TITLE PAGES
@@ -125,7 +184,7 @@
 % Acknowledgements
 \chapter*{Acknowledgments}
 \addcontentsline{toc}{chapter}{Acknowledgements}
-%\input{acknowledgements}
+\input{acknowledgements}
 % You can add blank pages here, if you like
 
 % ABSTRACT
@@ -186,10 +245,10 @@
 
 % Add your necessary chapters
 
-%---CONCLUSIONS---
-\chapter{Conclusions}
+%---SAMPLE---
+\chapter{Chapter}
 \label{chap:conclusions}
-\input{chapters/conclusion}
+\input{chapters/sample}
 
 % REFERENCES
 % Edit the references.bib file to add your own references, that you can then
@@ -201,6 +260,7 @@
 \begin{appendix}			% Start appendices
 \chapter{Sample Appendix}	% One chapter per appendix
 \label{app: sample appendix}
+\input{appendix/sample.tex}
 %\includepdf[pages={-}]{path/to/appendix.pdf}
 % or
 %\input{appendix_file}
