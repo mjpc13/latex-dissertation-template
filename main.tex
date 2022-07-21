@@ -1,0 +1,208 @@
+% M.Sc. Dissertation Template
+%	A work by Mário Cristóvão, based on an example by Gonçalo Martins and José Faria.
+
+% Preamble
+\documentclass[a4paper, 12pt]{report}
+
+% Includes
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage[utf8]{inputenc}				% UTF-8 encoding, so that you can use characters like ç and ã
+\usepackage[T1]{fontenc}				% Same, but for output encoding
+\usepackage[portuguese,english]{babel}	% Still related to the above
+\setlength {\marginparwidth }{2cm}
+\usepackage{todonotes}
+\usepackage{acronym}					% List of acronyms
+\usepackage{textcomp} 					% Extra characters
+\usepackage{graphicx} 					% \includegraphics{}, the most common command to include images in figures 
+\usepackage{titlesec}		 			% To manually format the chapter titles
+\usepackage[left=3cm,right=2cm,top=2.5cm,bottom=2.5cm]{geometry} % Margins, as dictated by the rules
+\usepackage[nottoc]{tocbibind} 	% Hyperlinks in table of contents, useful for navigation
+\usepackage{multirow, makecell, pifont, rotating}
+\usepackage[section]{placeins}			% \FloatBarrier, a useful command when your figures are trying to run away
+\usepackage{caption}					% For captioning figures
+\usepackage{subcaption}					% Subfigures (the subfigure package is deprecated and should not be used)
+\usepackage[toc,page]{appendix}			% Appendices
+\usepackage{pdfpages}					% Useful when your appendix is a pre-compiled PDF, such as a whole paper
+\usepackage{url}						% Useful when one wants to include URLs in the text
+\usepackage[
+      colorlinks=true,    			%no frame around URL
+      urlcolor=black,    			%no colors
+      menucolor=black,    			%no colors
+      linkcolor=black,    			%no colors
+      citecolor=black,    			%no colors
+      bookmarks=true,    			%tree-like TOC
+      bookmarksopen=true,    		%expanded when starting
+      bookmarksnumbered=true, 		%Put section numbers in bookmarks
+      hyperfootnotes=true,    		%no referencing of footnotes, does not compile
+      pdfpagemode=UseOutlines,    	%show the bookmarks when starting the pdf viewer
+      plainpages=false, 			%solve problem ``destination with the same identifier'' warning
+      pdfpagelabels				 	%solve problem ``destination with the same identifier'' warning
+]{hyperref} 							% So that our citations look good and still work as links
+\usepackage{epigraph}					% For your inspirational quote
+\usepackage{etoolbox}
+\usepackage{float}
+\usepackage{arydshln}
+\usepackage{tikz,lipsum,lmodern}
+\usepackage[most]{tcolorbox}
+\usepackage{graphicx}
+%\usepackage[table,xcdraw]{xcolor}
+\usepackage{listings}
+
+\usepackage{mathptmx} %Times New Roman Font with support for equations
+
+\lstset{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\linespread{0.8}\ttfamily\small,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\renewcommand\cellalign{lc}
+\newcommand{\xmark}{\ding{55}}%
+\newcommand{\cmark}{\ding{51}}%
+\setlength{\headheight}{16pt}
+\renewcommand{\baselinestretch}{1.5}	% 1.5 line spacing, as mandated by the rules
+\titleformat{\chapter}[hang] 			% Smaller chapter titles
+{\normalfont\huge\bfseries}{\thechapter}{1em}{} 
+
+\newcommand{\MONTH}{%
+  \ifcase\the\month
+  \or January% 1
+  \or February% 2
+  \or March% 3
+  \or April% 4
+  \or May% 5
+  \or June% 6
+  \or July% 7
+  \or August% 8
+  \or September% 9
+  \or October% 10
+  \or November% 11
+  \or December% 12
+  \fi}
+\makeatletter
+\newcommand{\YEAR}{\the\year}
+\makeatother
+\colorlet{shadecolor}{lightgray}
+
+\newcommand{\thesistitle}{Dissertation Title}			% Your work's title
+\newcommand{\myname}{Author Name}				% Your name
+\newcommand{\statedate}{Place, \MONTH\ \YEAR}					% The date, usually "Place, Month Year"
+\newcommand{\supervisorname}{Supervisor's Name}		% Your supervisor's name
+\newcommand{\cosupervisorname}{co-supervisor 1 \linebreak co-supervisor 2}	% Your co-supervisor's name, if any.
+
+% MAIN DOCUMENT
+\begin{document}
+\pagenumbering{roman}
+
+% TITLE PAGES
+% Uncomment this line when you have your cover ready. An MSWord template is available at that folder.
+% You should edit it in MSWord, and then export it into PDF, so we can neatly import it here.
+\includepdf[pages={-}]{images/cover.pdf}
+% Blank page
+%\newpage
+%\thispagestyle{empty}
+%\mbox{}
+% Title page
+\input{title_page.tex}
+% Blank page
+\newpage
+\thispagestyle{empty}
+\mbox{}
+
+% Acknowledgements
+\chapter*{Acknowledgments}
+\addcontentsline{toc}{chapter}{Acknowledgements}
+%\input{acknowledgements}
+% You can add blank pages here, if you like
+
+% ABSTRACT
+\chapter*{Resumo}
+\addcontentsline{toc}{chapter}{Resumo}
+\input{chapters/resumo}
+% And here
+
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+\input{chapters/abstract}
+% And here as well
+\newpage\null\thispagestyle{empty}\newpage
+
+% INSPIRATIONAL QUOTE
+% Setup
+\setlength\epigraphwidth{12cm}
+\setlength\epigraphrule{0pt}
+\makeatletter
+\patchcmd{\epigraph}{\@epitext{#1}}{\itshape\@epitext{#1}}{}{}
+\makeatother
+% Actual Quote
+\vspace*{\fill}
+\epigraph{"Intelligence is the ability to avoid doing work, yet getting the work done.”}
+{Linus Torvald}
+\vspace*{\fill}
+\newpage\null\thispagestyle{empty}\newpage
+% TABLE OF CONTENTS
+\pagestyle{plain}
+\tableofcontents
+% LIST OF ACRONYMS
+\chapter*{List of Acronyms}
+\addcontentsline{toc}{chapter}{List of Acronyms}
+\input{list_acronyms}
+% LIST OF FIGURES
+\listoffigures
+% LIST OF TABLES
+\listoftables
+% BODY
+\newpage
+\thispagestyle{empty}
+\mbox{}
+\pagenumbering{arabic}	% Arabic numbering starts
+
+% For each chapter, you should have a bit of code that looks like this:
+% \label allows you to later \ref that chapter.
+% \input includes a different .tex file, so that you can have you dissertation
+% neatly partitioned into several files. I recommend one file per chapter.
+
+
+
+%-----------------CHAPTERS--------------------
+
+%-----CHAPTER1-INTRODUCTION-----
+\chapter{Introduction}
+\label{chap:introduction}
+\input{chapters/introduction}
+
+% Add your necessary chapters
+
+%---CONCLUSIONS---
+\chapter{Conclusions}
+\label{chap:conclusions}
+\input{chapters/conclusion}
+
+% REFERENCES
+% Edit the references.bib file to add your own references, that you can then
+% \cite on your text.
+\bibliographystyle{ieeetr}
+\bibliography{bibliography/references.bib}
+\titleformat{\chapter}[display]	% Return chapter titles to normal, taking up a whole page (cool for appendices)
+{\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
+\begin{appendix}			% Start appendices
+\chapter{Sample Appendix}	% One chapter per appendix
+\label{app: sample appendix}
+%\includepdf[pages={-}]{path/to/appendix.pdf}
+% or
+%\input{appendix_file}
+\end{appendix}
+\end{document}

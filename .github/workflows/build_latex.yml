@@ -1,0 +1,65 @@
+name: Build and Publish LaTeX document
+on:
+  push:
+    # Sequence of patterns matched against refs/tags
+    tags:
+      - 'v*' # Push events to matching v*
+  workflow_dispatch:
+jobs:
+  build_latex:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: LaTeX compilation
+        uses: xu-cheng/latex-action@v2
+        with:
+          # The root LaTeX file to be compiled
+          #working_directory: .
+          root_file: main.tex
+      - name: Get current time
+        uses: 1466587594/get-current-time@v2
+        id: current-time
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+      - name: Upload Release Asset
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          asset_path: ./main.pdf
+          asset_name: main.pdf
+          asset_content_type: application/pdf
+      - name: Generate dummy page
+        run: |
+          mkdir public
+          cp main.pdf public/main.pdf
+          cat > public/index.html <<EOL
+          <!doctype html>
+          <html height="100%">
+            <head>
+              <title>Mario's Master Thesis</title>
+            </head>
+            <body height="100%">
+              <p>Compiled on: ${{ steps.current-time.outputs.readableTime }} </p>
+              <iframe src="main.pdf" width="100%" height="1000px"> </iframe>
+            </body>
+          </html>
+          EOL
+      - name: Deploy to GitHub Pages
+        if: success()
+        uses: crazy-max/ghaction-github-pages@v2
+        with:
+          target_branch: gh-pages
+          build_dir: public
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
