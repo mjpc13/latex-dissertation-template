@@ -1,0 +1,16 @@
+changelog:
+  exclude:
+    labels:
+      - ignore-release
+    authors:
+      - octocat
+  categories:
+    - title: Major Changes :loudspeaker:
+      labels:
+        - major-change
+    - title: Minor Changes :pencil:
+      labels:
+        - minor-change
+    - title: Other Changes :wrench:
+      labels:
+        - "*"
