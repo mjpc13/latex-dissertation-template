@@ -1,6 +1,6 @@
 # Latex Dissertation Template
 
-This is a public latex template repository to write dissertations. It complies with the [visual identity of Coimbra University](https://www.uc.pt/identidadevisual). It was designed for the Faculdade de Ciências e Tecnologias da Universidade de Coimbra, but it can be adapted.
+This is a public latex template repository to write dissertations. It complies with the [visual identity of Coimbra University](https://www.uc.pt/identidadevisual). It was designed for the Faculdade de Ciências e Tecnologias da Universidade de Coimbra, but it can be adapted. In you check the generated sample PDF in the [github pages](https://mjpc13.github.io/latex-dissertation-template/) of this repository.
 
 # Getting Started
 
