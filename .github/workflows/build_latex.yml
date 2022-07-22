@@ -47,7 +47,7 @@ jobs:
           <!doctype html>
           <html height="100%">
             <head>
-              <title>Mario's Master Thesis</title>
+              <title>Dissertation</title>
             </head>
             <body height="100%">
               <p>Compiled on: ${{ steps.current-time.outputs.readableTime }} </p>
