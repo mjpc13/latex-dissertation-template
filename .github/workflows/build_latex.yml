@@ -73,7 +73,7 @@ jobs:
         if: always()
         with:
           tag_name: ${{ github.ref }}
-          name: Release ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
           generate_release_notes: true
           files: |
             main/main.pdf
