@@ -45,9 +45,8 @@
 \usepackage{tikz,lipsum,lmodern}
 \usepackage[most]{tcolorbox}
 \usepackage{graphicx}
-%\usepackage[table,xcdraw]{xcolor}
 \usepackage{listings}
-\usepackage{lipsum}
+\usepackage{fancyhdr}
 
 \lstset{
     backgroundcolor=\color{backcolour},   
@@ -81,25 +80,25 @@
 % uncomment your preferred style
 
 % Simple Format
-%\titleformat{\chapter}[hang]
-%{
-%  \sffamily
-%  \Huge
-%  \bfseries
-%}
-%{\thechapter}{0.5em}
-%{}
-
-% Line Format
 \titleformat{\chapter}[hang]
 {
-  \sffamily
-  \Huge
-  \bfseries
+ \sffamily
+ \Huge
+ \bfseries
 }
 {\thechapter}{0.5em}
 {}
-[\vspace{-3.0ex} \rule{\textwidth}{2pt}]
+
+% Line Format
+% \titleformat{\chapter}[hang]
+% {
+%   \sffamily
+%   \Huge
+%   \bfseries
+% }
+% {\thechapter}{0.5em}
+% {}
+% [\vspace{-3.0ex} \rule{\textwidth}{2pt}]
 
 % Framed Format
 %\titleformat{\chapter}[frame]
@@ -114,7 +113,7 @@
 
 %---STYLE FOR CODE---
 
-%Example of adding a new language (Julia in this case)
+%Example of adding a language not included in the package (Julia in this case)
 %\lstdefinelanguage{Julia}%
 %  {morekeywords={abstract,break,case,catch,const,continue,do,else,elseif,%
 %      end,export,false,for,function,immutable,import,importall,if,in,%
@@ -161,46 +160,52 @@
 \newcommand{\supervisorname}{Supervisor's Name}		% Your supervisor's name
 \newcommand{\cosupervisorname}{co-supervisor 1 \linebreak co-supervisor 2}	% Your co-supervisor's name, if any.
 
+
+% Handle page styling for headers and footers
+\fancypagestyle{plain}{
+  \fancyhf{}
+  \fancyfoot[CE,CO]{\thepage}
+  \renewcommand{\headrulewidth}{0pt}
+}
+
+\fancypagestyle{empty}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+}
+
 % MAIN DOCUMENT
 \begin{document}
 
-\pagenumbering{roman}
-
 % TITLE PAGES
+\frontmatter
 % Uncomment this line when you have your cover ready. An MSWord template is available at that folder.
 % You should edit it in MSWord, and then export it into PDF, so we can neatly import it here.
 \includepdf[pages={-}]{images/cover.pdf}
-% Blank page
-%\newpage
-%\thispagestyle{empty}
-%\mbox{}
+% Blank page (Back of Cover)
+\newpage\thispagestyle{empty}
+
+\pagestyle{plain}
+
 % Title page
 \input{title_page.tex}
-% Blank page
-\newpage
-\thispagestyle{empty}
-\mbox{}
 
 % Acknowledgements
 \chapter*{Acknowledgments}
 \addcontentsline{toc}{chapter}{Acknowledgements}
 \input{acknowledgements}
-% You can add blank pages here, if you like
 
 % ABSTRACT
 \chapter*{Resumo}
 \addcontentsline{toc}{chapter}{Resumo}
 \input{chapters/resumo}
-% And here
 
 \chapter*{Abstract}
 \addcontentsline{toc}{chapter}{Abstract}
 \input{chapters/abstract}
-% And here as well
-\newpage\null\thispagestyle{empty}\newpage
 
 % INSPIRATIONAL QUOTE
 % Setup
+\chapter*{}
 \setlength\epigraphwidth{12cm}
 \setlength\epigraphrule{0pt}
 \makeatletter
@@ -211,39 +216,37 @@
 \epigraph{"Intelligence is the ability to avoid doing work, yet getting the work done.”}
 {Linus Torvald}
 \vspace*{\fill}
-\newpage\null\thispagestyle{empty}\newpage
+
 % TABLE OF CONTENTS
 \pagestyle{plain}
 \tableofcontents
+
 % LIST OF ACRONYMS
 \chapter*{List of Acronyms}
 \addcontentsline{toc}{chapter}{List of Acronyms}
 \input{list_acronyms}
+
 % LIST OF FIGURES
 \listoffigures
+
 % LIST OF TABLES
 \listoftables
-% BODY
-\newpage
-\thispagestyle{empty}
-\mbox{}
-\pagenumbering{arabic}	% Arabic numbering starts
 
+% BODY
+\mainmatter
+
+%-----------------CHAPTERS--------------------
 % For each chapter, you should have a bit of code that looks like this:
 % \label allows you to later \ref that chapter.
 % \input includes a different .tex file, so that you can have you dissertation
 % neatly partitioned into several files. I recommend one file per chapter.
-
-
-
-%-----------------CHAPTERS--------------------
 
 %-----CHAPTER1-INTRODUCTION-----
 \chapter{Introduction}
 \label{chap:introduction}
 \input{chapters/introduction}
 
-% Add your necessary chapters
+% Add your chapters
 
 %---SAMPLE---
 \chapter{Chapter}
@@ -257,12 +260,15 @@
 \bibliography{bibliography/references.bib}
 \titleformat{\chapter}[display]	% Return chapter titles to normal, taking up a whole page (cool for appendices)
 {\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
+
+
+%APPENDIX
 \begin{appendix}			% Start appendices
 \chapter{Sample Appendix}	% One chapter per appendix
 \label{app: sample appendix}
 \input{appendix/sample.tex}
+% To include pdf use this
 %\includepdf[pages={-}]{path/to/appendix.pdf}
-% or
-%\input{appendix_file}
+
 \end{appendix}
 \end{document}
